@@ -1,137 +1,190 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 export default function Filters() {
+    const [filters, setFilters] = useState([]);
+
+    useEffect(() => {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      const body = JSON.stringify({
+        limit: 10,
+        offset: 0,
+      });
+    
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body,
+      };
+    
+      fetch(
+        "https://api.weekday.technology/adhoc/getSampleJdJSON",
+        requestOptions
+      )
+        .then((response) => response.json()) // Assuming the response is JSON
+        .then((result) => {
+          // Set the data inside setFilters
+          setFilters(result);
+          // Console log the data
+          console.log(result);
+        })
+        .catch((error) => console.error(error));
+    }, []);
+    
+  
   return (
     <>
       <div
-        spacing={3}
         style={{
-          width: "1200px",
           display: "flex",
-          marginLeft: "-320px",
-          flexWrap: "wrap",
+          alignContent: "flex-start",
+          flexDirection: "column",
+          justifyContent: "start",
         }}
       >
-        {/* // Roles  */}
-
-        <Autocomplete
-          sx={{
-            minWidth: "160px",
-            "& .MuiAutocomplete-input": {
-              height: "10px",
-            },
-            margin: "10px",
+        <div
+          spacing={3}
+          style={{
+            width: "1200px",
+            display: "flex",
+            marginLeft: "-320px",
+            flexWrap: "wrap",
           }}
-          multiple
-          id="tags-outlined"
-          options={top100Films}
-          getOptionLabel={(option) => option.title}
-          filterSelectedOptions
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Roles"
-              sx={{ fontSize: "10px" }}
-            />
-          )}
-        />
+        >
+          {/* // Roles  */}
 
-        {/* // Number of Employees */}
-        <Autocomplete
-          sx={{
-            minWidth: "160px",
-            "& .MuiAutocomplete-input": {
-              height: "10px",
-            },
-            margin: "10px",
+          <Autocomplete
+            sx={{
+              minWidth: "160px",
+              "& .MuiAutocomplete-input": {
+                height: "10px",
+              },
+              margin: "10px",
+            }}
+            multiple
+            id="tags-outlined"
+            options={top100Films}
+            getOptionLabel={(option) => option.title}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder="Roles"
+                sx={{ fontSize: "10px" }}
+              />
+            )}
+          />
+
+          {/* // Number of Employees */}
+          <Autocomplete
+            sx={{
+              minWidth: "160px",
+              "& .MuiAutocomplete-input": {
+                height: "10px",
+              },
+              margin: "10px",
+            }}
+            multiple
+            id="tags-outlined"
+            options={top100Films}
+            getOptionLabel={(option) => option.title}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField {...params} placeholder="Number of Employees" />
+            )}
+          />
+
+          {/* // Experience */}
+          <Autocomplete
+            sx={{
+              minWidth: "160px",
+              "& .MuiAutocomplete-input": {
+                height: "10px",
+              },
+              margin: "10px",
+            }}
+            multiple
+            id="tags-outlined"
+            options={top100Films}
+            getOptionLabel={(option) => option.title}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField {...params} placeholder="Experience" />
+            )}
+          />
+
+          {/* // Remote */}
+          <Autocomplete
+            sx={{
+              minWidth: "160px",
+              "& .MuiAutocomplete-input": {
+                height: "10px",
+              },
+              margin: "10px",
+            }}
+            multiple
+            id="tags-outlined"
+            options={top100Films}
+            getOptionLabel={(option) => option.title}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder="Remote"
+                sx={{ height: "10px" }}
+              />
+            )}
+          />
+
+          {/* Minimum Base Pay Salary */}
+
+          <Autocomplete
+            sx={{
+              minWidth: "160px",
+              "& .MuiAutocomplete-input": {
+                height: "10px",
+              },
+              margin: "10px",
+              "& .MuiAutocomplete-input": {
+                height: "10px",
+              },
+            }}
+            multiple
+            id="tags-outlined"
+            options={top100Films}
+            getOptionLabel={(option) => option.title}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField {...params} placeholder="Minimum Base Pay Salary" />
+            )}
+          />
+
+          <TextField
+            sx={{
+              width: "200px",
+              margin: "10px",
+              height: "10px !important",
+            }}
+            placeholder="Search Company Name"
+          />
+        </div>
+        <div
+          style={{
+            float: "",
           }}
-          multiple
-          id="tags-outlined"
-          options={top100Films}
-          getOptionLabel={(option) => option.title}
-          filterSelectedOptions
-          renderInput={(params) => (
-            <TextField {...params} placeholder="Number of Employees" />
-          )}
-        />
-
-        {/* // Experience */}
-        <Autocomplete
-          sx={{
-            minWidth: "160px",
-            "& .MuiAutocomplete-input": {
-              height: "10px",
-            },
-            margin: "10px",
-          }}
-          multiple
-          id="tags-outlined"
-          options={top100Films}
-          getOptionLabel={(option) => option.title}
-          filterSelectedOptions
-          renderInput={(params) => (
-            <TextField {...params} placeholder="Experience" />
-          )}
-        />
-
-        {/* // Remote */}
-        <Autocomplete
-          sx={{
-            minWidth: "160px",
-            "& .MuiAutocomplete-input": {
-              height: "10px",
-            },
-            margin: "10px",
-          }}
-          multiple
-          id="tags-outlined"
-          options={top100Films}
-          getOptionLabel={(option) => option.title}
-          filterSelectedOptions
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Remote"
-              sx={{ height: "10px" }}
-            />
-          )}
-        />
-
-        {/* Minimum Base Pay Salary */}
-
-        <Autocomplete
-          sx={{
-            minWidth: "160px",
-            "& .MuiAutocomplete-input": {
-              height: "10px",
-            },
-            margin: "10px",
-            "& .MuiAutocomplete-input": {
-              height: "10px",
-            },
-          }}
-          multiple
-          id="tags-outlined"
-          options={top100Films}
-          getOptionLabel={(option) => option.title}
-          filterSelectedOptions
-          renderInput={(params) => (
-            <TextField {...params} placeholder="Minimum Base Pay Salary"  />
-          )}
-        />
-
-        <TextField
-          sx={{
-            width: "200px",
-            margin: "10px",
-            height: "10px !important",
-          }}
-          placeholder="Search Company Name"
-        />
+        >
+          <FormControlLabel
+            sx={{ alignSelf: "left" }}
+            control={<Checkbox />}
+            label="Show jobs with referrals available"
+          />
+        </div>
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Filters from "../components/Filters";
+import JobCard from "../components/JobCard";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -76,6 +77,7 @@ export default function SearchJobs() {
       </TabPanel>
       <TabPanel value={value} index={1} dir={theme.direction}>
       <Filters />
+      <JobCard/>
       </TabPanel>
       
     </Box>
