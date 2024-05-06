@@ -6,6 +6,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Filters from "../components/Filters";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,7 +54,8 @@ export default function SearchJobs() {
   };
 
   return (
-    <Box sx={{ width: 500, bgcolor: "none" }}>
+    <>
+    <Box sx={{ width: 500, bgcolor: "none", }}>
       <AppBar position="static">
         <Tabs
           value={value}
@@ -62,7 +64,7 @@ export default function SearchJobs() {
           textColor="black"
           variant="fullWidth"
           aria-label="full width tabs example"
-          style={{ backgroundColor: "white", color: "black" }}
+          style={{ backgroundColor: "white", color: "black"}}
         >
           <Tab label="Item One" {...a11yProps(0)} />
           <Tab label="Item Two" {...a11yProps(1)} />
@@ -73,9 +75,11 @@ export default function SearchJobs() {
         Item One
       </TabPanel>
       <TabPanel value={value} index={1} dir={theme.direction}>
-        Item Two
+      <Filters />
       </TabPanel>
       
     </Box>
+    
+    </>
   );
 }
