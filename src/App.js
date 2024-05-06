@@ -1,10 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import SearchJobs from './pages/SearchJobs';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello</h1>
+    <div className="App" style={{
+      width:"100%",
+      display:"flex",
+      alignItem:"center",
+      justifyContent:"center",
+      marginTop:"50px"
+    }}>
+      <SearchJobs/>
     </div>
   );
 }
