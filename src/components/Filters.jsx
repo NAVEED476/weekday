@@ -7,37 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
 export default function Filters() {
-    const [filters, setFilters] = useState([]);
 
-    useEffect(() => {
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      const body = JSON.stringify({
-        limit: 10,
-        offset: 0,
-      });
-    
-      const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body,
-      };
-    
-      fetch(
-        "https://api.weekday.technology/adhoc/getSampleJdJSON",
-        requestOptions
-      )
-        .then((response) => response.json()) // Assuming the response is JSON
-        .then((result) => {
-          // Set the data inside setFilters
-          setFilters(result);
-          // Console log the data
-          console.log(result);
-        })
-        .catch((error) => console.error(error));
-    }, []);
-    
-  
   return (
     <>
       <div
@@ -53,7 +23,7 @@ export default function Filters() {
           style={{
             width: "1200px",
             display: "flex",
-            marginLeft: "-320px",
+            // marginLeft: "-320px",
             flexWrap: "wrap",
           }}
         >

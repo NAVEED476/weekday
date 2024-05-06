@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import SearchJobs from "./pages/SearchJobs";
 import JobCard from "./components/JobCard";
+import JobListing from "./pages/JobListing";
 
 function App() {
   return (
@@ -17,7 +18,6 @@ function App() {
         }}
       >
         <SearchJobs />
-       
       </div>
     
     </>

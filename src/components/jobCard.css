@@ -1,54 +1,102 @@
-.logo-cont{
-    display: flex;
-    align-items: center;
+.job-cont{
+    width: 360px !important;
+    height: 100% !important;
+    position: relative !important;
+    border-radius: 20px !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 8px 15px !important;
+    margin: 10px;
+}
+.logo-cont {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  /* margin: 5px; */
+  margin-right: 10px !important;
+}
+.info-cont {
+  text-align: left;
+}
+.company-name {
+  font-size: 16px !important;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  color: #8b8b8b;
+  /* margin-left: 10px; */
+  text-align: left;
+}
+
+.designation {
+  font-size: 14px !important;
+  line-height: 1.5;
+  text-align: "left";
+}
+.location {
+  font-size: 13px !important;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.salary-range {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  margin: 8px 0px !important;
+  text-align: left;
+  color: rgb(77, 89, 106);
+}
+
+.about-company {
+  font-size: 16px !important;
+  margin: 0;
+  font-weight: 500;
+  text-align: left;
+}
+
+.desc {
+  font-size: 14px !important;
+  text-align: left;
+  margin-top: 3px !important;
+  white-space: "pre-wrap";
+  font-weight: 500;
+  color: rgb(77, 89, 106);
+}
+.min-exp {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 5px 0px !important;
+  color: #8b8b8b;
+  text-align: left;
+}
+.exp {
+  font-size: 14px !important;
+  font-weight: 400;
+  color: black;
+  text-align: left;
+  margin: 0px 0px 5px 0px !important;
+}
+.view-job {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  /* position: relative; */
+  margin: 5px !important;
+  top: -20px;
+  color: blue;
+}
+
+.apply-btn{
     justify-content: space-between;
-    margin: 5px;
-
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
 }
-.info-cont{
-    text-align: left;
-}
-.company-name{
-    font-size: 16px !important;
-    font-weight: 600;
-    letter-spacing: 1px;
-    margin-bottom:5px;
-    color: #8b8b8b;
-    /* margin-left: 10px; */
-    text-align: left;
-}
-
-.designation{
-    font-size: 14px !important;
-    line-height: 1.5;
-    text-align:"left";
-}
-.location{
-    font-size: 10px !important;
+.apply-btn-text{
+    width: 100%;
+    background-color: rgb(85, 239, 196) !important;
+    color: rgb(0, 0, 0) !important;
     font-weight: 500;
-    margin-top: 5px;
-}
-
-.salary-range{
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    margin: 8px 0px !important;
-    text-align: left;
-    color: rgb(77, 89, 106);
-}
-
-.about-company{
-    font-size: 16px !important;
-    margin: 0;
-    font-weight: 500;
-    text-align: left;
-}
-
-.desc{
-        font-size:14px !important;
-        text-align:left;
-        margin-top: 3px !important;
-        white-space:"pre-wrap";
-        font-weight: 500;
-        color: rgb(77, 89, 106);
+    padding: 8px 18px !important;
+    border-radius: 8px;
+    margin: 6px 0px !important;
 }
