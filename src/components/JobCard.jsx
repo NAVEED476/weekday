@@ -2,15 +2,11 @@ import { Button, Typography } from "@mui/material";
 import React from "react";
 import "./jobCard.css";
 import Avatar from "@mui/material/Avatar";
-const JobCard = ({obj}) => {
+const JobCard = ({ obj }) => {
   return (
     <>
-      <div
-      className="job-cont"
-      >
-        <div>
-
-        </div>
+      <div className="job-cont">
+        <div></div>
         <div className="logo-cont">
           <div
             style={{
@@ -21,17 +17,26 @@ const JobCard = ({obj}) => {
           </div>
           <div className="info-cont">
             <Typography className="company-name">{obj.companyName}</Typography>
-            <Typography className="designation">
-              {obj.jobRole}
-            </Typography>
+            <Typography className="designation">{obj.jobRole}</Typography>
             <Typography className="location">{obj.location}</Typography>
           </div>
         </div>
 
         <div>
           <Typography className="salary-range">
-            Estimated Salary: ₹10 - 14 LPA ⚠️
+
+            {/* when minminJdSalary is null then it starts from 0  */}
+            
+            Estimated Salary: $
+            {obj.minJdSalary !== null || obj.maxJdSalary !== null
+              ? `${
+                // when both salaries or null then it displays 0
+                  obj.minJdSalary !== null ? `${obj.minJdSalary}K -` : "0 -"
+                } $${obj.maxJdSalary}K`
+              : "notSpecified"}
+            ✅
           </Typography>
+
           <Typography variant="h5" className="about-company">
             About Company:
           </Typography>
@@ -49,17 +54,19 @@ const JobCard = ({obj}) => {
             personalised targeting and performance without reliance on personal
             data. We serve .
           </Typography>
-          <Typography className="view-job">
-            View job
-          </Typography>
+          <Typography className="view-job">View job</Typography>
         </div>
         <div>
-            <Typography className="min-exp">Experience</Typography>
-            <Typography className="exp">{obj.minExp}y - {obj.maxExp}y</Typography>
+          <Typography className="min-exp">Experience</Typography>
+          <Typography className="exp">
+            {obj.minExp !== null && obj.maxExp !== null
+              ? `${obj.minExp}y - ${obj.maxExp}y`
+              : "0"}
+          </Typography>
         </div>
-       <div className="apply-btn">
-       <Button className="apply-btn-text">⚡ Easy Apply</Button>
-       </div>
+        <div className="apply-btn">
+          <Button className="apply-btn-text">⚡ Easy Apply</Button>
+        </div>
       </div>
     </>
   );
