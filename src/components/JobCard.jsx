@@ -2,11 +2,39 @@ import { Button, Typography } from "@mui/material";
 import React from "react";
 import "./jobCard.css";
 import Avatar from "@mui/material/Avatar";
-const JobCard = ({ obj }) => {
+import Skeleton from "@mui/material/Skeleton";
+const JobCard = ({ obj, isLoading }) => {
+  const renderSkeleton = () => (
+    <div className="job-cont">
+      <div className="logo-cont">
+        <div style={{ marginRight: "20px" }}>
+          <Skeleton variant="circular" width={40} height={40} />
+        </div>
+        <div className="info-cont">
+          <Skeleton variant="text" width={120} height={20} />
+          <Skeleton variant="text" width={200} height={20} />
+          <Skeleton variant="text" width={100} height={20} />
+        </div>
+      </div>
+      <div>
+        <Skeleton variant="text" width={200} height={20} />
+        <Skeleton variant="text" width={600} height={80} />
+        <Skeleton variant="text" width={120} height={20} />
+        <Skeleton variant="text" width={120} height={20} />
+      </div>
+      <div className="apply-btn">
+        <Skeleton variant="text" width={100} height={40} />
+      </div>
+    </div>
+  );
+
+  // If data is loading, render skeleton loading effect
+  if (isLoading) {
+    return renderSkeleton();
+  }
   return (
     <>
       <div className="job-cont">
-        <div></div>
         <div className="logo-cont">
           <div
             style={{
