@@ -3,7 +3,28 @@ import React from "react";
 import "./jobCard.css";
 import Avatar from "@mui/material/Avatar";
 import Skeleton from "@mui/material/Skeleton";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  // border: "1px solid #000",
+  borderRadius: "10px",
+  boxShadow: 24,
+  p: 4,
+  overflow: "auto",
+};
 const JobCard = ({ obj, isLoading }) => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const someText = Math.ceil(obj.jobDetailsFromCompany.length * 0.3);
+  const trunkatedText =  obj.jobDetailsFromCompany.substring(0, someText)
   const renderSkeleton = () => (
     <div className="job-cont">
       <div className="logo-cont">
@@ -35,6 +56,24 @@ const JobCard = ({ obj, isLoading }) => {
   return (
     <>
       <div className="job-cont">
+        <div>
+          <p
+            style={{
+              width: "100px",
+              textAlign: "center",
+              fontSize: "10px",
+              padding: "3px",
+              background: "#ffff",
+              padding: "4px 6px",
+              boxShadow: "rgba(6, 6, 6, 0.05) 0px 2px 6px 0px",
+              borderRadius: "10px",
+              border: "1px solid rgb(230, 230, 230)",
+              marginBottom: "20px",
+            }}
+          >
+            ⏳posted days ago
+          </p>
+        </div>
         <div className="logo-cont">
           <div
             style={{
@@ -52,13 +91,11 @@ const JobCard = ({ obj, isLoading }) => {
 
         <div>
           <Typography className="salary-range">
-
             {/* when minminJdSalary is null then it starts from 0  */}
-            
             Estimated Salary: $
             {obj.minJdSalary !== null || obj.maxJdSalary !== null
               ? `${
-                // when both salaries or null then it displays 0
+                  // when both salaries or null then it displays 0
                   obj.minJdSalary !== null ? `${obj.minJdSalary}K -` : "0 -"
                 } $${obj.maxJdSalary}K`
               : "notSpecified"}
@@ -68,21 +105,24 @@ const JobCard = ({ obj, isLoading }) => {
           <Typography variant="h5" className="about-company">
             About Company:
           </Typography>
-          <Typography className="desc">
-            Blis is the audience-first platform that doesn't rely on personal
-            data. We’re an integrated planning and buying platform that delivers
-            scaled, relevant and high-performing audiences, helping the world’s
-            largest brands and media agencies achieve their goals. Over the past
-            18 years, Blis has built its reputation on delivering award-winning
-            location-powered advertising solutions. In today’s consumer-centric
-            landscape, Blis is transforming the role of location data by
-            combining it with a broad range of rich and powerful datasets to
-            give our clients the deepest audience understanding available. Our
-            unique approach to integrated planning and buying provides
-            personalised targeting and performance without reliance on personal
-            data. We serve .
+          <Typography className="desc"> {trunkatedText} </Typography>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              {/* {obj.jobDetailsFromCompany} */}
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  {obj.jobDetailsFromCompany}
+                </Typography>
+              </Box>
+            </Modal>
+         
+          <Typography className="view-job" onClick={handleOpen}>
+            View job
           </Typography>
-          <Typography className="view-job">View job</Typography>
         </div>
         <div>
           <Typography className="min-exp">Experience</Typography>

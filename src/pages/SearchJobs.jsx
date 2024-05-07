@@ -65,6 +65,7 @@ export default function SearchJobs() {
         );
         const result = await response.json();
         setJobData(result.jdList);
+        console.log(result.jdList)
       } catch (error) {
         console.error(error);
       } finally {
