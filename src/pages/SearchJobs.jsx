@@ -66,7 +66,7 @@ export default function SearchJobs() {
         // Set the data inside setFilters
         setJobData(result.jdList);
         // Console log the data
-        console.log(result.jdList);
+        // console.log(result.jdList);
       })
       .catch((error) => console.error(error));
   }, []);
