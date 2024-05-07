@@ -113,7 +113,7 @@ const JobCard = ({ obj, isLoading }) => {
               aria-describedby="modal-modal-description"
             >
               {/* {obj.jobDetailsFromCompany} */}
-              <Box sx={style}>
+              <Box className="modalStyle">
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   {obj.jobDetailsFromCompany}
                 </Typography>

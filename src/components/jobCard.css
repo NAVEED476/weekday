@@ -5,7 +5,7 @@
     border-radius: 20px !important;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 8px 15px !important;
-    margin: 10px 20px !important;
+    margin: 10px 25px !important;
 }
 .logo-cont {
   display: flex;
@@ -83,6 +83,7 @@
   margin: 5px !important;
   top: -20px;
   color: blue;
+  cursor: pointer;
 }
 
 .apply-btn{
@@ -99,4 +100,27 @@
     padding: 8px 18px !important;
     border-radius: 8px;
     margin: 6px 0px !important;
+}
+
+.modalStyle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  background-color: #f5f5f5; 
+  border-radius: 10px;
+  box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.15); 
+  padding: 16px;
+  overflow: auto;
+}
+
+@media (max-width: 575.98px){
+  .modalStyle {
+    width: 80%;
+    font-size: 10px;
+  }
+  #modal-modal-title{
+    font-size: 14px;
+  }
 }

@@ -1,5 +1,6 @@
 .filter-cont {
-    width: 100%;
+    width: 100vw !important;
+    overflow: auto !important;
     display: flex !important;
     flex-wrap: wrap !important;
     align-content: center !important;
@@ -37,3 +38,11 @@
   margin: 0px !important;
   max-width: calc(100% - 6px);
 }
+
+@media (max-width: 575.98px){
+  .refferal-select-box{
+    margin-left: 10px;
+  }
+}
+
+
