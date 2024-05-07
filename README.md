@@ -18,8 +18,8 @@ This project is a job listings platform developed with React.js, CSS, and Materi
 
 ## Getting Started
 
-1. Clone this repository to your local machine.
-2. Navigate to the project directory in your terminal.
+1. Clone this repository to your local machine. `git clone https://github.com/NAVEED476/weekday.git`
+2. Navigate to the project directory in your terminal. `cd weekday` 
 3. Install dependencies using `npm install`.
 4. Start the development server using `npm start`.
 5. Open your web browser and navigate to `http://localhost:3000` to view the application.
@@ -31,13 +31,6 @@ This project is a job listings platform developed with React.js, CSS, and Materi
 - Scroll down to load more job listings automatically.
 - Click on the apply button/link to proceed with job applications.
 
-## Contributing
-
-Contributions are welcome! If you have any suggestions, improvements, or bug fixes, feel free to open an issue or create a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
