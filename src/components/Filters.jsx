@@ -8,16 +8,18 @@ import "./filters.css";
 import InputLabel from "@mui/material/InputLabel";
 import CircularProgress from "@mui/material/CircularProgress";
 
-export default function Filters({ jobData,  setJobData }) {
+export default function Filters({ jobData, setJobData }) {
   const [inputValue, setInputValue] = useState("");
   const [selectedRoles, setSelectedRoles] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [selectedExperience, setSelectedExperience] = useState([]);
+  const [selectedMinSalary, setSelectedMinSalary] = useState([]);
   const [searchCompanyName, setSearchCompanyName] = useState("");
   const [filteredData, setFilteredData] = useState(jobData);
   const [isLoading, setIsLoading] = useState(false);
 
   // Extract unique values for Number of Employees, Experience, Remote, and Minimum Base Pay Salary
-  const uniqueEmployees = Array.from(new Set(filteredData.map((job) => job.location)));
+  const uniqueLocations = Array.from(new Set(filteredData.map((job) => job.location)));
   const uniqueExperience = Array.from(new Set(filteredData.map((job) => job.minExp || 0)));
   const uniqueMinBasePaySalary = Array.from(new Set(filteredData.map((job) => job.minJdSalary)));
 
@@ -28,6 +30,18 @@ export default function Filters({ jobData,  setJobData }) {
 
       if (selectedRoles.length > 0) {
         filtered = filtered.filter((job) => selectedRoles.includes(job.jobRole));
+      }
+
+      if (selectedLocations.length > 0) {
+        filtered = filtered.filter((job) => selectedLocations.includes(job.location));
+      }
+
+      if (selectedExperience.length > 0) {
+        filtered = filtered.filter((job) => selectedExperience.includes(job.minExp || 0));
+      }
+
+      if (selectedMinSalary.length > 0) {
+        filtered = filtered.filter((job) => selectedMinSalary.includes(job.minJdSalary));
       }
 
       if (searchCompanyName) {
@@ -42,10 +56,22 @@ export default function Filters({ jobData,  setJobData }) {
     };
 
     filterData();
-  }, [selectedRoles, searchCompanyName, jobData, setJobData]);
+  }, [selectedRoles, selectedLocations, selectedExperience, selectedMinSalary, searchCompanyName, jobData, setJobData]);
 
   const handleRoleChange = (event, newValue) => {
     setSelectedRoles(newValue);
+  };
+
+  const handleLocationChange = (event, newValue) => {
+    setSelectedLocations(newValue);
+  };
+
+  const handleExperienceChange = (event, newValue) => {
+    setSelectedExperience(newValue);
+  };
+
+  const handleMinSalaryChange = (event, newValue) => {
+    setSelectedMinSalary(newValue);
   };
 
   const handleCompanyNameChange = (event) => {
@@ -102,10 +128,12 @@ export default function Filters({ jobData,  setJobData }) {
               margin: "10px",
             }}
             multiple
-            id="employees"
-            options={uniqueEmployees}
+            id="locations"
+            options={uniqueLocations}
             getOptionLabel={(option) => option}
             filterSelectedOptions
+            value={selectedLocations}
+            onChange={handleLocationChange}
             renderInput={(params) => <TextField {...params} placeholder="Location" />}
           />
 
@@ -117,10 +145,13 @@ export default function Filters({ jobData,  setJobData }) {
               },
               margin: "10px",
             }}
+            multiple
             id="experience"
             options={uniqueExperience.sort((a, b) => a - b)}
             getOptionLabel={(option) => `${option || 0}`}
             filterSelectedOptions
+            value={selectedExperience}
+            onChange={handleExperienceChange}
             renderInput={(params) => <TextField {...params} placeholder="Experience" />}
           />
 
@@ -132,10 +163,13 @@ export default function Filters({ jobData,  setJobData }) {
               },
               margin: "10px",
             }}
+            multiple
             id="minBasePaySalary"
             options={uniqueMinBasePaySalary.sort((a, b) => a - b)}
             getOptionLabel={(option) => (option ? `${option}` : "Not Specified")}
             filterSelectedOptions
+            value={selectedMinSalary}
+            onChange={handleMinSalaryChange}
             renderInput={(params) => <TextField {...params} placeholder="Minimum Base Pay Salary" />}
           />
           <div className="input-comapny-name">
