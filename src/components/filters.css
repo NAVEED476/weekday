@@ -33,3 +33,7 @@
 .css-s16x75-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-endAdornment {
     right: 0px !important;
 }
+.css-s16x75-MuiAutocomplete-root .MuiAutocomplete-tag {
+  margin: 0px !important;
+  max-width: calc(100% - 6px);
+}
