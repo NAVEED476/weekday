@@ -6,25 +6,51 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import "./filters.css";
 import InputLabel from "@mui/material/InputLabel";
+import CircularProgress from "@mui/material/CircularProgress";
 
-export default function Filters({ jobData, setJobData , setFilteredJobData}) {
+export default function Filters({ jobData,  setJobData }) {
   const [inputValue, setInputValue] = useState("");
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
+  const [searchCompanyName, setSearchCompanyName] = useState("");
+  const [filteredData, setFilteredData] = useState(jobData);
+  const [isLoading, setIsLoading] = useState(false);
+
   // Extract unique values for Number of Employees, Experience, Remote, and Minimum Base Pay Salary
-  const uniqueEmployees = Array.from(
-    new Set(jobData.map((job) => job.location))
-  );
-  const uniqueExperience = Array.from( 
-    new Set(jobData.map((job) => job.minExp))
-  );
-  // const uniqueRemote = Array.from(new Set(jobData.map(job => job.location)));
-  const uniqueMinBasePaySalary = Array.from(
-    new Set(jobData.map((job) => job.minJdSalary))
-  );
+  const uniqueEmployees = Array.from(new Set(filteredData.map((job) => job.location)));
+  const uniqueExperience = Array.from(new Set(filteredData.map((job) => job.minExp || 0)));
+  const uniqueMinBasePaySalary = Array.from(new Set(filteredData.map((job) => job.minJdSalary)));
 
   useEffect(() => {
-  }, [jobData]);
+    const filterData = async () => {
+      setIsLoading(true);
+      let filtered = jobData;
+
+      if (selectedRoles.length > 0) {
+        filtered = filtered.filter((job) => selectedRoles.includes(job.jobRole));
+      }
+
+      if (searchCompanyName) {
+        filtered = filtered.filter((job) =>
+          job.companyName.toLowerCase().includes(searchCompanyName.toLowerCase())
+        );
+      }
+
+      setFilteredData(filtered);
+      setJobData(filtered);
+      setIsLoading(false);
+    };
+
+    filterData();
+  }, [selectedRoles, searchCompanyName, jobData, setJobData]);
+
+  const handleRoleChange = (event, newValue) => {
+    setSelectedRoles(newValue);
+  };
+
+  const handleCompanyNameChange = (event) => {
+    setSearchCompanyName(event.target.value);
+  };
 
   return (
     <>
@@ -49,6 +75,8 @@ export default function Filters({ jobData, setJobData , setFilteredJobData}) {
             options={jobData.map((job) => job.jobRole)}
             getOptionLabel={(option) => (option ? option : "")}
             filterSelectedOptions
+            value={selectedRoles}
+            onChange={handleRoleChange}
             renderInput={(params) => (
               <>
                 <TextField
@@ -78,9 +106,7 @@ export default function Filters({ jobData, setJobData , setFilteredJobData}) {
             options={uniqueEmployees}
             getOptionLabel={(option) => option}
             filterSelectedOptions
-            renderInput={(params) => (
-              <TextField {...params} placeholder="Location" />
-            )}
+            renderInput={(params) => <TextField {...params} placeholder="Location" />}
           />
 
           <Autocomplete
@@ -93,34 +119,10 @@ export default function Filters({ jobData, setJobData , setFilteredJobData}) {
             }}
             id="experience"
             options={uniqueExperience.sort((a, b) => a - b)}
-            getOptionLabel={(option) => option}
+            getOptionLabel={(option) => `${option || 0}`}
             filterSelectedOptions
-            renderInput={(params) => (
-              <TextField {...params} placeholder="Experience" />
-            )}
+            renderInput={(params) => <TextField {...params} placeholder="Experience" />}
           />
-
-          {/* <Autocomplete
-            sx={{
-              minWidth: "160px",
-              "& .MuiAutocomplete-input": {
-                height: "10px",
-              },
-              margin: "10px",
-            }}
-            multiple
-            id="remote"
-            // options={uniqueRemote}
-            getOptionLabel={(option) => option}
-            filterSelectedOptions
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder="Remote"
-                sx={{ height: "10px" }}
-              />
-            )}
-          /> */}
 
           <Autocomplete
             sx={{
@@ -132,17 +134,18 @@ export default function Filters({ jobData, setJobData , setFilteredJobData}) {
             }}
             id="minBasePaySalary"
             options={uniqueMinBasePaySalary.sort((a, b) => a - b)}
-            getOptionLabel={(option) => option}
+            getOptionLabel={(option) => (option ? `${option}` : "Not Specified")}
             filterSelectedOptions
-            renderInput={(params) => (
-              <TextField {...params} placeholder="Minimum Base Pay Salary" />
-            )}
+            renderInput={(params) => <TextField {...params} placeholder="Minimum Base Pay Salary" />}
           />
           <div className="input-comapny-name">
             <input
               type="text"
+              placeholder="search company Name"
+              value={searchCompanyName}
+              onChange={handleCompanyNameChange}
               style={{
-                width: "100%",
+                minWidth: "170px",
                 height: "100%",
                 borderRadius: "4px",
                 borderColor: "#e3e0e0 #e3e0e0",
@@ -158,6 +161,18 @@ export default function Filters({ jobData, setJobData , setFilteredJobData}) {
           />
         </div>
       </div>
+      {isLoading && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "20px",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      )}
     </>
   );
 }
