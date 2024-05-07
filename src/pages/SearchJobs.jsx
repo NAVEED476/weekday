@@ -80,7 +80,7 @@ export default function SearchJobs() {
       
         <h3 style={{textAlign:"center"}}>Search Jobs</h3>
         
-          <Filters jobData={jobData} />
+          <Filters jobData={jobData} setJobData={setJobData}/>
           <JobListing jobData={jobData} />
        
       </Box>
