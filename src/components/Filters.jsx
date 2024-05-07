@@ -4,13 +4,22 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import "./filters.css";
+import InputLabel from "@mui/material/InputLabel";
 
 export default function Filters({ jobData }) {
+  const [inputValue, setInputValue] = useState("");
   // Extract unique values for Number of Employees, Experience, Remote, and Minimum Base Pay Salary
-  const uniqueEmployees = Array.from(new Set(jobData.map(job => job.location)));
-  const uniqueExperience = Array.from(new Set(jobData.map(job => job.minExp)));
+  const uniqueEmployees = Array.from(
+    new Set(jobData.map((job) => job.location))
+  );
+  const uniqueExperience = Array.from(
+    new Set(jobData.map((job) => job.minExp))
+  );
   // const uniqueRemote = Array.from(new Set(jobData.map(job => job.location)));
-  const uniqueMinBasePaySalary = Array.from(new Set(jobData.map(job => job.minJdSalary)));
+  const uniqueMinBasePaySalary = Array.from(
+    new Set(jobData.map((job) => job.minJdSalary))
+  );
 
   useEffect(() => {
     console.log(uniqueEmployees);
@@ -28,13 +37,7 @@ export default function Filters({ jobData }) {
           justifyContent: "start",
         }}
       >
-        <div
-          style={{
-            width: "1200px",
-            display: "flex",
-            flexWrap: "wrap",
-          }}
-        >
+        <div className="filter-cont">
           <Autocomplete
             sx={{
               minWidth: "160px",
@@ -45,15 +48,22 @@ export default function Filters({ jobData }) {
             }}
             multiple
             id="roles"
-            options={jobData.map(job => job.jobRole)}
-            getOptionLabel={(option) => option ? option : ""}
+            options={jobData.map((job) => job.jobRole)}
+            getOptionLabel={(option) => (option ? option : "")}
             filterSelectedOptions
             renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder="Roles"
-                sx={{ fontSize: "10px" }}
-              />
+              <>
+                <TextField
+                  {...params}
+                  placeholder={!inputValue ? "Roles" : ""}
+                  InputProps={{
+                    ...params.InputProps,
+                    id: "roles-input",
+                  }}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  sx={{ fontSize: "10px" }}
+                />
+              </>
             )}
           />
 
@@ -83,9 +93,8 @@ export default function Filters({ jobData }) {
               },
               margin: "10px",
             }}
-            multiple
             id="experience"
-            options={uniqueExperience.sort((a,b) => a-b)}
+            options={uniqueExperience.sort((a, b) => a - b)}
             getOptionLabel={(option) => option}
             filterSelectedOptions
             renderInput={(params) => (
@@ -123,26 +132,27 @@ export default function Filters({ jobData }) {
               },
               margin: "10px",
             }}
-            multiple
             id="minBasePaySalary"
-            options={uniqueMinBasePaySalary.sort((a,b)=>a-b)}
+            options={uniqueMinBasePaySalary.sort((a, b) => a - b)}
             getOptionLabel={(option) => option}
             filterSelectedOptions
             renderInput={(params) => (
               <TextField {...params} placeholder="Minimum Base Pay Salary" />
             )}
           />
-
-          <TextField
-            sx={{
-              width: "200px",
-              margin: "10px",
-              height: "10px !important",
-            }}
-            placeholder="Search Company Name"
-          />
+          <div className="input-comapny-name">
+            <input
+              type="text"
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "4px",
+                borderColor: "#e3e0e0 #e3e0e0",
+              }}
+            />
+          </div>
         </div>
-        <div>
+        <div className="refferal-select-box">
           <FormControlLabel
             sx={{ alignSelf: "left" }}
             control={<Checkbox />}
