@@ -19,6 +19,7 @@ export default function Filters({ jobData, setJobData }) {
   const [isLoading, setIsLoading] = useState(false);
 
   // Extract unique values for Number of Employees, Experience, Remote, and Minimum Base Pay Salary
+  const uniqueRoles = Array.from(new Set(filteredData.map((job) => job.jobRole)));
   const uniqueLocations = Array.from(new Set(filteredData.map((job) => job.location)));
   const uniqueExperience = Array.from(new Set(filteredData.map((job) => job.minExp || 0)));
   const uniqueMinBasePaySalary = Array.from(new Set(filteredData.map((job) => job.minJdSalary)));
@@ -98,24 +99,24 @@ export default function Filters({ jobData, setJobData }) {
             }}
             multiple
             id="roles"
-            options={jobData.map((job) => job.jobRole)}
-            getOptionLabel={(option) => (option ? option : "")}
+            options={uniqueRoles}
+            getOptionLabel={(option) => option}
             filterSelectedOptions
             value={selectedRoles}
             onChange={handleRoleChange}
             renderInput={(params) => (
-              <>
-                <TextField
-                  {...params}
-                  placeholder={!inputValue ? "Roles" : ""}
-                  InputProps={{
-                    ...params.InputProps,
-                    id: "roles-input",
-                  }}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  sx={{ fontSize: "10px" }}
-                />
-              </>
+              <TextField
+                {...params}
+                placeholder={selectedRoles.length === 0 ? "Roles" : ""}
+                InputProps={{
+                  ...params.InputProps,
+                  id: "roles-input",
+                  startAdornment: selectedRoles.map((role) => (
+                    <Chip key={role} label={role} size="small" />
+                  )),
+                }}
+                sx={{ fontSize: "10px" }}
+              />
             )}
           />
 
