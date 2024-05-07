@@ -5,13 +5,14 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import "./filters.css";
 
-export default function Filters({ jobData, setJobData}) {
+export default function Filters({ jobData, setJobData }) {
   const [inputValue, setInputValue] = useState("");
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedExperience, setSelectedExperience] = useState("");
   const [selectedMinBasePaySalary, setSelectedMinBasePaySalary] = useState("");
-  
+  const [companyName, setCompanyName] = useState("");
+
   const [allRoles, setAllRoles] = useState([]);
   const [allLocations, setAllLocations] = useState([]);
   const [allExperience, setAllExperience] = useState([]);
@@ -31,16 +32,17 @@ export default function Filters({ jobData, setJobData}) {
   }, [jobData]);
 
   useEffect(() => {
-    // Filter job data based on selected roles, location, experience, and minimum base pay salary
+    // Filter job data based on selected roles, location, experience, minimum base pay salary, and company name
     const filteredData = jobData.filter(
       (job) =>
         (selectedRoles.length === 0 || selectedRoles.includes(job.jobRole)) &&
         (selectedLocation === "" || job.location === selectedLocation) &&
         (selectedExperience === "" || job.minExp === selectedExperience) &&
-        (selectedMinBasePaySalary === "" || job.minJdSalary === selectedMinBasePaySalary)
+        (selectedMinBasePaySalary === "" || job.minJdSalary === selectedMinBasePaySalary) &&
+        (companyName === "" || job.companyName.toLowerCase().includes(companyName.toLowerCase()))
     );
     setJobData(filteredData);
-  }, [jobData, selectedRoles, selectedLocation, selectedExperience, selectedMinBasePaySalary, setJobData]);
+  }, [jobData, selectedRoles, selectedLocation, selectedExperience, selectedMinBasePaySalary, companyName, setJobData]);
 
   return (
     <>
@@ -97,8 +99,11 @@ export default function Filters({ jobData, setJobData}) {
             )}
           />
           <div className="input-comapny-name">
-            <input
+            <TextField
               type="text"
+              placeholder="Company Name"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
               style={{
                 width: "100%",
                 height: "100%",
